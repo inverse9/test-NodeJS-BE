@@ -8,8 +8,15 @@ async function getAll(page = 1) {
     `SELECT * FROM user LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page };
-  return { data, meta };
+  return { data, page };
+}
+
+async function getById(id) {
+  const result = await db.query(`SELECT * FROM user WHERE id=${id} `);
+
+  let data = { message: "user not found" };
+  if (result.length >= 1) data = result[0];
+  return data;
 }
 
 async function create(user) {
@@ -43,4 +50,4 @@ async function remove(id) {
   return { message };
 }
 
-module.exports = { getAll, create, update, remove };
+module.exports = { getAll, create, update, remove, getById };
