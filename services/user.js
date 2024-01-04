@@ -5,14 +5,14 @@ const config = require("../config");
 async function getAll(page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM user LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM users LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   return { data, page };
 }
 
 async function getById(id) {
-  const result = await db.query(`SELECT * FROM user WHERE id=${id} `);
+  const result = await db.query(`SELECT * FROM users WHERE id=${id} `);
 
   let data = { message: "user not found" };
   if (result.length >= 1) data = result[0];
@@ -21,7 +21,7 @@ async function getById(id) {
 
 async function create(user) {
   const result = await db.query(
-    `INSERT INTO user
+    `INSERT INTO users
     (name, age) 
     VALUES
      ('${user.name}','${user.age}')`
@@ -34,7 +34,7 @@ async function create(user) {
 
 async function update(id, user) {
   const result = await db.query(
-    `UPDATE user 
+    `UPDATE users 
     SET name='${user.name}',age='${user.age}' 
     WHERE id=${id}`
   );
@@ -44,7 +44,7 @@ async function update(id, user) {
 }
 
 async function remove(id) {
-  const result = await db.query(`DELETE FROM user where id = ${id}`);
+  const result = await db.query(`DELETE FROM users where id = ${id}`);
   let message = "Error delete";
   if (result.affectedRows) message = "success delete";
   return { message };
