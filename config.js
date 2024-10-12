@@ -1,6 +1,6 @@
 const config = {
   db: {
-    host: "mysql",
+    host: "localhost",
     user: "root",
     password: "",
     database: "testing_nodejs_be",
