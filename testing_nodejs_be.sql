@@ -38,7 +38,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `age`) VALUES
-(1, 'babmi', 11);
+(1, 'test', 11);
 
 --
 -- Indexes for dumped tables

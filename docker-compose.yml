@@ -1,0 +1,31 @@
+services:
+  be:
+    build: ./
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+  fe:
+    build: ..\..\microservices\FE-testing_nodejs_be\
+    ports:
+      - 5173:5173
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: testing_nodejs_be
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db:

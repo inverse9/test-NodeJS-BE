@@ -8,4 +8,21 @@ async function query(sql) {
   return results;
 }
 
-module.exports = { query };
+async function createUsersTable() {
+  const createTableSQL = `
+    CREATE TABLE IF NOT EXISTS users (
+      id int AUTO_INCREMENT PRIMARY KEY,
+      name longtext DEFAULT NULL,
+      age smallint(6) DEFAULT NULL
+    );
+  `;
+
+  try {
+    const result = await query(createTableSQL);
+    console.log("Users table created or already exists.");
+  } catch (error) {
+    console.error("Error creating users table:", error);
+  }
+}
+
+module.exports = { query, createUsersTable };
