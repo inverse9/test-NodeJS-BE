@@ -1,9 +1,9 @@
 const config = {
   db: {
-    host: "db",
+    host: "localhost",
     user: "root",
     password: "",
-    database: "testing_nodejs_be",
+    database: "managemen_user",
   },
   listPerPage: 10,
 };

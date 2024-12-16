@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { body } = req;
+  console.log(body);
   try {
     res.json(await user.create(body));
   } catch (err) {
